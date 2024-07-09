@@ -6,6 +6,58 @@
         <title>To-do List</title>
     </head>
     <body>
+       
+
+        <div id="content">
+        </div>
+        <div class="sidebar">
+            <h1>AsadNotes</h1>
+            <div class="projects">
+                <h2>Projects:</h2>
+            </div>
+            <button id="addProject">Add Project</button>
+        </div>
+
+        <dialog id="newProject">
+            <form>
+                <label for="name">Project Name?</label>
+                <input type="text" name="name" id="name">
+                <button type="submit" id="newProjectSubmit">Submit</button>
+            </form>
+        </dialog>
+
+        <dialog id="newToDo">
+            <form>
+                <label for="type">Type</label>
+                <select name="type" id="type">
+                    <option value="toDo">ToDo</option>
+                    <option value="note">Note</option>
+                </select>
+                <ul>
+                    <li>
+                        <label for="title">Title*</label>
+                        <input type="text" name="title" id="title" required>
+                    </li>
+                    <li>
+                        <label for="desc">Description*</label>
+                        <textarea type="text" name="desc" id="desc" required>
+                    </li>
+                    <li>
+                        <label for="pri">Priority</label>
+                        <select name="pri" id="pri">
+                            <option value="1">Low</option>
+                            <option value="2">Medium</option>
+                            <option value="3">High</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="date">Due Date</label>
+                        <input type="datetime-local" name="date" id="date">
+                    </li>
+                </ul>
+                <button type="submit" id="newToDoSubmit">Submit</button>
+            </form>
+        </dialog>
         
     </body>
 </html>

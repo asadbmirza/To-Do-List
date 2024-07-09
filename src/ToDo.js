@@ -1,4 +1,3 @@
-import {format} from "date-fns";
 
 function ToDoFeature(input="") {
     let property = input;
@@ -21,8 +20,11 @@ function ToDo() {
     description = ToDoFeature();
     priority = ToDoFeature();
     dueDate = ToDoFeature();
+    function getType() {
+        return "ToDo";
+    }
 
-    return {title, description, priority, dueDate};
+    return {title, description, priority, dueDate, getType};
 }
 
 export {ToDoFeature, ToDo};

@@ -5,8 +5,10 @@ function Note() {
 
     title = ToDoFeature();
     description = ToDoFeature();
-
-    return {title, description};
+    function getType() {
+        return "Note";
+    }
+    return {title, description, getType};
 }
 
 export {Note};
