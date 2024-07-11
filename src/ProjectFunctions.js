@@ -7,13 +7,9 @@ const Main = (function Main() {
         projects.push(project);
     }
 
-    function removeProject(project) {
-        for (let i = 0;i < project.length;i++) {
-            if (projects[i] == project) {
-                projects = projects.slice(0, i).concat(projects.slice(i+1, projects.length));
-                break;
-            }
-        }
+    function removeProject(index) {
+        projects = projects.slice(0, index).concat(projects.slice(index+1, projects.length));
+        
     }
 
     function getProject(index) {

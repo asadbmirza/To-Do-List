@@ -6,17 +6,28 @@ function Project(input) {
     let name = input;
 
     function addObject(object) {
-        project.push(object);
-        project = sortProject(project);
+        if (object.getType() != "ToDo" || project.length == 0) {
+            project.push(object);
+        }
+        else {
+            for (let i = 0; i < project.length; i++) {
+                console.log(object.priority.getProperty());
+                if (project[i].getType() != "ToDo" || object.priority.getProperty() >= project[i].priority.getProperty()) {
+                    project.splice(i, 0, object);
+                    break;
+                }
+                else if (project.length - 1 == i) {
+                    project.push(object);
+                }
+            }
+            
+        }
+        
+      
     }
 
-    function removeObject(object) {
-        for (let i = 0;i < project.length;i++) {
-            if (project[i] == object) {
-                project = project.slice(0, i).concat(project.slice(i+1, project.length));
-                break;
-            }
-        }
+    function removeObject(index) {
+        project = project.slice(0, index).concat(project.slice(index+1, project.length));
     }
 
     function getName() {
@@ -35,39 +46,6 @@ function Project(input) {
         return project.slice();
     }
 
-    //Wanted to practice quick sort, lets see if it works
-    function sortProject(array) {
-        if (array.length <= 1) {
-          return array;
-        }
-        
-        let pivot;
-        let num = 0;
-        for (let i = 0;i < array.length; i++) {
-            if (array[i].getType() == "ToDo") {
-                pivot = array[i]
-                num = i;
-            }
-        }
-        
-        
-        let left = []; 
-        let right = [];
-      
-        for (let i = 0; i < array.length; i++) {
-            if (i != num) {
-                if (array[i].getType() == "ToDo") {
-                    array[i] < pivot ? right.push(array[i]) : left.push(array[i]);
-                }
-                else {
-                    right.push(array[i]);
-                }                
-            }
-            
-        }
-      
-        return sortProject(left).concat(pivot, sortProject(right));
-    };
 
     
 

@@ -2,8 +2,10 @@ import {Main} from "./ProjectFunctions";
 import { Note } from "./Note";
 import { ToDo } from "./ToDo";
 import { Project } from "./Project";
-import {format} from "date-fns";
-
+import {format, parseISO} from "date-fns";
+import addBaseDate from "./dateBase";
+import "./style.css"
+import EditButton from "./tag-edit-outline.svg";
 
 function DOMHandling() {
     const content = document.querySelector("#content");
@@ -39,10 +41,11 @@ function DOMHandling() {
     inputDesc.value = "";
     const inputPri = document.querySelector("#pri");
     const inputDate = document.querySelector("#date");
+    inputDate.min = addBaseDate;
     newToDoSubmit.addEventListener('click', addToDoToDOM);
     function addToDoToDOM(e) {
         e.preventDefault();
-        if (inputTitle.value.trim() != "" && inputDesc.value.trim() != "" ) {
+        if (inputTitle.value.trim() != "" && inputDesc.value.trim() != "" && (noteType.value == "note" || inputDate.value != "")) {
             newToDoDialog.close();
             let currentProject = Main.getProject(currentProjectValue);
             if (noteType.value == "note") {
@@ -57,7 +60,7 @@ function DOMHandling() {
                 toDo.title.setProperty(inputTitle.value);
                 toDo.description.setProperty(inputDesc.value);
                 toDo.priority.setProperty(inputPri.value);
-                toDo.dueDate.setProperty(inputDate.value);
+                toDo.dueDate.setProperty(format(parseISO(inputDate.value), "PPpp"));
                 currentProject.addObject(toDo);
             }
 
@@ -72,7 +75,7 @@ function DOMHandling() {
     function startProject(index) {
         projectsDOM[index].classList.add("toDoContent");
         const addToDo = document.createElement("button");
-        addToDo.textContent = "Add ToDo/Note";
+        addToDo.textContent = "+";
         addToDo.addEventListener("click", () => newToDoDialog.showModal());
         projectsDOM[index].appendChild(addToDo);
     }
@@ -91,17 +94,44 @@ function DOMHandling() {
             const toDoPriority = document.createElement("h3");
             const toDoDescription = document.createElement("h3");
             const toDoDueDate = document.createElement("h3");
+            const toDoRemove = document.createElement("button");
+            const toDoEdit = document.createElement("button");
+            const toDoEditIcon = new Image();
+            let mainProject = Main.getProject(currentProjectValue);
+            toDoEditIcon.src = EditButton;
+
+            toDoRemove.textContent = "X";
+            toDoRemove.classList.add("toDoRemove");
+            toDoRemove.addEventListener("click", () => {
+                mainProject.removeObject(i);
+                renderProject();
+            });
+
+            toDoEdit.classList.add("toDoEdit");
+            toDoEdit.addEventListener("click", (e) => {
+                inputTitle.value = toDos[i].title.getProperty();
+                inputDesc.value = toDos[i].description.getProperty();
+                newToDoDialog.showModal();
+                mainProject.removeObject(i);
+                renderProject();
+            });
+
             toDoTitle.textContent = toDos[i].title.getProperty();
             toDoDescription.textContent = toDos[i].description.getProperty();
             if (toDos[i].getType() == "ToDo") {
-                toDoPriority.textContent = priorityMapper[toDos[i].priority.getProperty()];
+                toDoPriority.textContent = "Priority: " + priorityMapper[toDos[i].priority.getProperty()];
                 toDoDueDate.textContent = toDos[i].dueDate.getProperty();
             }
+
+            toDoDueDate.classList.add("toDoDueDate");
             
             toDoContainer.appendChild(toDoHeader);
             toDoHeader.appendChild(toDoTitle);
             toDoHeader.appendChild(toDoPriority);
+            toDoHeader.appendChild(toDoRemove);
+            toDoEdit.appendChild(toDoEditIcon);
             toDoContainer.appendChild(toDoDescription);
+            toDoContainer.appendChild(toDoEdit);
             toDoContainer.appendChild(toDoDueDate);
 
             projectsDOM[currentProjectValue].appendChild(toDoContainer);
@@ -118,6 +148,15 @@ function DOMHandling() {
             projectButton.setAttribute("value", projectIndex);
             sidebarProjects.appendChild(projectButton);
             projectButton.addEventListener("click", loadProject);
+
+            const deleteProject = document.createElement("button");
+            deleteProject.addEventListener("click", () => {
+                Main.removeProject(i);
+                renderSidebar();
+            });
+            deleteProject.textContent = "X";
+            projectButton.appendChild(deleteProject);
+            
             projectsDOM.push(document.createElement("div"));
             startProject(projectsDOM.length-1);
             projectIndex++;
@@ -161,5 +200,3 @@ function DOMHandling() {
 }
 
 DOMHandling();
-
-

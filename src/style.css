@@ -1,0 +1,190 @@
+body {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+h1, h2, h3, h4 {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+li:first-child {
+    margin-top: 10px;
+}
+
+li > input, li > select, li>textarea {
+    margin-left: 10px;
+}
+
+textarea, input, select {
+    font-family: inherit;
+    font-size: 13px;
+}
+
+.sidebar {
+    background-color: #dfdddd;
+    flex-basis: 300px;
+    
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+}
+.sidebar > h2 {
+    padding-left: 2px;
+}
+
+.projects {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-top: 10px;
+}
+
+#addProject {
+    background-color:#292974;
+    font-size: large;
+    font-weight: bold;
+    border-radius: 10px;
+    color: white;
+    margin: 10px;
+    box-sizing: border-box;
+}
+
+#addProject:hover {
+    background-color: #171741;
+}
+
+.projectButton {
+    background-color: transparent;
+    font-size: large;
+    text-align: left;
+    border-width: 0;
+    padding: 5px 2px;
+}
+
+.projectButton:hover {
+    background-color: #aaaaaa;
+}
+
+dialog {
+    border-radius: 15px;
+    border: 3px solid #292974;
+}
+
+#newProjectSubmit, #newToDoSubmit {
+    background-color:#292974;
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
+    margin: 10px;
+    box-sizing: border-box;
+}
+
+#newProjectSubmit:hover, #newToDoSubmit:hover {
+    background-color: #171741;
+}
+
+
+.mainContent {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+.mainContent > h1 {
+    position: fixed;
+}
+
+.toDoContent {
+    display: grid;
+    grid-template-columns: 50px auto;
+    row-gap: 20px;
+}
+
+.toDoContent > button{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    color: white;
+    font-size: 40px;
+    border-width: 0px;
+    background-color: #292974;
+    box-shadow: 3px 3px 5px black;
+    position: fixed;
+    top: 40px;
+}
+.toDoContent > button:hover {
+    background-color: #171741;
+
+}
+
+.toDoContent > div {
+    grid-column: 2 / 3;
+    border: 3px solid black;
+    background-color: #d8d8d8;
+    width: 400px;
+    justify-self: center;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto 1fr;
+}
+
+.toDoContent > div > div {
+    background-color: #acacac;
+    display: grid;
+    grid-column: 1 / 3;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-auto-flow: column;
+}
+
+.toDoEdit {
+    padding: 0;
+    background-color: transparent;
+    border-width: 0px;
+    justify-self: end;
+    grid-row: 3 / 4;
+    grid-column: 2 / 3;
+}
+
+.toDoDueDate {
+    grid-column: 1 / 2;
+    grid-row: 3 / 4;
+}
+
+
+.toDoRemove {
+    background-color: transparent;
+    width: 20px;
+    height: 20px;
+    font-size: 15px;
+    border-width: 0px;
+    justify-self: end;
+}
+
+.toDoRemove:hover {
+    background-color: rgb(194, 194, 194);
+}
+
+.toDoEdit > img {
+    width: 20px;
+    height: auto;
+}
+.toDoEdit:hover {
+    background-color: rgb(184, 184, 184);
+}
